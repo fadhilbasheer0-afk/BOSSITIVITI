@@ -1,2 +1,3 @@
 # transient dev logs
 *.log
+.vercel
