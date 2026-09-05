@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-noir: #080808;
+  --color-obsidian: #0d0d0d;
+  --color-carbon: #121212;
+  --color-bronze: #c8ad7f;
+  --color-bronze-light: #dfc9a8;
+  --color-bronze-dim: rgba(200, 173, 127, 0.25);
+  --color-ivory: #f7f5f0;
+  --color-alabaster: #e6e2d8;
+  --color-ash: #8e8d8a;
+  --color-line: #1c1c1c;
+
+  --font-display: "Cinzel", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", sans-serif;
+
+  --spacing-ultra-wide: 0.35em;
+  --spacing-cinema: 0.5em;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--color-noir);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-bronze);
+  color: var(--color-noir);
+}
+
+/* Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-noir);
+}
+::-webkit-scrollbar-thumb {
+  background: #232220;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-bronze);
+}
+
+/* Custom Cursor - Desktop Only */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  input,
+  textarea {
+    cursor: none;
+  }
+}
+
+/* Image Frame Hover */
+.editorial-image-frame {
+  position: relative;
+  overflow: hidden;
+}
+.editorial-image-frame img {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s ease;
+  will-change: transform;
+}
+.editorial-image-frame:hover img {
+  transform: scale(1.045) translate3d(0, -4px, 0);
+}
+
+/* Preloader Veil Line Animation */
+@keyframes expandVeil {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 140px;
+    opacity: 0.8;
+  }
+}
+
+.veil-line {
+  width: 0;
+  height: 1px;
+  background: var(--color-bronze);
+  animation: expandVeil 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Animated underline (editorial links / CTAs) */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: var(--color-bronze);
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  width: 100%;
+}
+
+/* Gentle atmospheric glow (cinematic lighting) */
+@keyframes glowBreath {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.06);
+  }
+}
+.glow-breath {
+  animation: glowBreath 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Slow editorial image zoom (idle, very subtle) */
+@keyframes editorialZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
+}
+.editorial-zoom {
+  animation: editorialZoom 16s cubic-bezier(0.25, 0.6, 0.35, 1) forwards;
+  will-change: transform;
+}
+
+/* Nav link hover underline */
+.nav-link-hover {
+  position: relative;
+}
+.nav-link-hover::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-bronze);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link-hover:hover::after {
+  width: 100%;
+}
+
+/* Scroll indicator bounce */
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 0.6;
+  }
+}
+.scroll-indicator-line {
+  animation: scrollBounce 2.5s ease-in-out infinite;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .veil-line {
+    animation: none;
+    width: 140px;
+    opacity: 0.8;
+  }
+  .scroll-indicator-line {
+    animation: none;
+    opacity: 0.6;
+  }
+  .glow-breath,
+  .editorial-zoom {
+    animation: none;
+  }
+  .link-underline::after {
+    transition: none;
+    width: 100%;
+  }
+}

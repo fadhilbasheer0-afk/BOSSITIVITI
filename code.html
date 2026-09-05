@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BOSSITIVITI | Haute Parfumerie</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;family=Montserrat:wght@200;300;400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            noir: '#080808',
+            obsidian: '#0d0d0d',
+            carbon: '#121212',
+            bronze: '#c8ad7f',
+            'bronze-light': '#dfc9a8',
+            'bronze-dim': 'rgba(200, 173, 127, 0.25)',
+            ivory: '#f7f5f0',
+            alabaster: '#e6e2d8',
+            ash: '#8e8d8a',
+            line: '#1c1c1c'
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            display: ['Cinzel', 'serif'],
+            sans: ['Montserrat', 'sans-serif']
+          },
+          letterSpacing: {
+            'ultra-wide': '0.35em',
+            'cinema': '0.5em'
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="luxury-enhancements">
+    body {
+      background-color: #080808;
+      color: #f7f5f0;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+    ::selection {
+      background: #c8ad7f;
+      color: #080808;
+    }
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+    .font-cormorant {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* Custom Luxury Scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080808;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #232220;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #c8ad7f;
+    }
+
+    /* Custom Desktop Cursor */
+    @media (pointer: fine) {
+      body {
+        cursor: none;
+      }
+      a, button, input, textarea {
+        cursor: none;
+      }
+      #custom-cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: #c8ad7f;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.08s ease-out, opacity 0.2s ease;
+      }
+      #custom-cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(200, 173, 127, 0.4);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99998;
+        transform: translate(-50%, -50%);
+        transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                    height 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                    background-color 0.35s ease, 
+                    border-color 0.35s ease,
+                    transform 0.15s ease-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #custom-cursor-ring .cursor-text {
+        opacity: 0;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #080808;
+        font-weight: 600;
+        transition: opacity 0.2s ease;
+      }
+      #custom-cursor-ring.cursor-explore {
+        width: 68px;
+        height: 68px;
+        background: #c8ad7f;
+        border-color: #c8ad7f;
+      }
+      #custom-cursor-ring.cursor-explore .cursor-text {
+        opacity: 1;
+      }
+      #custom-cursor-ring.cursor-hover-link {
+        width: 44px;
+        height: 44px;
+        border-color: #dfc9a8;
+        background: rgba(200, 173, 127, 0.1);
+      }
+    }
+
+    /* Depth and Image Physics */
+    .editorial-image-frame {
+      position: relative;
+      overflow: hidden;
+    }
+    .editorial-image-frame img {
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+      will-change: transform;
+    }
+    .editorial-image-frame:hover img {
+      transform: scale(1.045) translate3d(0, -4px, 0);
+    }
+
+    /* 1-Second Opening Veil */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background-color: #080808;
+      z-index: 999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+    }
+    #preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .veil-line {
+      width: 0;
+      height: 1px;
+      background: #c8ad7f;
+      animation: expandVeil 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes expandVeil {
+      0% { width: 0; opacity: 0; }
+      50% { opacity: 1; }
+      100% { width: 140px; opacity: 0.8; }
+    }
+  </style>
+</head>
+<body class="bg-noir text-ivory antialiased tracking-normal select-none-desktop">
+<!-- BEGIN: 1-Second Opening Experience -->
+<div aria-hidden="true" id="preloader">
+<div class="text-center">
+<span class="font-display text-sm md:text-base tracking-[0.6em] text-alabaster uppercase opacity-90 block mb-4 animate-pulse">
+      B O S S I T I V I T I
+    </span>
+<div class="veil-line mx-auto"></div>
+</div>
+</div>
+<!-- END: 1-Second Opening Experience -->
+<!-- BEGIN: Desktop Custom Cursor -->
+<div class="hidden md:block" id="custom-cursor-dot"></div>
+<div class="hidden md:block" id="custom-cursor-ring">
+<span class="cursor-text">EXPLORE</span>
+</div>
+<!-- END: Desktop Custom Cursor -->
+<!-- BEGIN: Desktop Scroll Progress Tracker -->
+<aside aria-live="polite" class="fixed right-8 bottom-12 z-40 hidden lg:flex flex-col items-end gap-2 pointer-events-none">
+<span class="text-[9px] font-sans tracking-cinema uppercase text-ash/80">Catalogue</span>
+<span class="font-display text-xs tracking-widest text-bronze" id="scroll-chapter-label">
+    01 / 06 — NB THOUSAND
+  </span>
+<div class="w-24 h-[1px] bg-line relative overflow-hidden mt-1">
+<div class="absolute top-0 left-0 h-full bg-bronze transition-all duration-300 w-[16%]" id="scroll-progress-bar"></div>
+</div>
+</aside>
+<!-- END: Desktop Scroll Progress Tracker -->
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-noir/85 backdrop-blur-md border-b border-line" data-purpose="luxury-header">
+<div class="max-w-7xl mx-auto px-6 md:px-12 h-24 flex items-center justify-between">
+<!-- Brand Logomark -->
+<a aria-label="BOSSITIVITI Home" class="group flex flex-col cursor-interactive-link" href="#">
+<span class="font-display text-lg md:text-xl font-medium tracking-cinema text-ivory group-hover:text-bronze-light transition-colors duration-300">
+          BOSSITIVITI
+        </span>
+</a>
+<!-- Minimal, Restrained Luxury Navigation -->
+<nav class="hidden md:flex items-center space-x-12 text-[11px] font-sans tracking-ultra-wide uppercase text-ash">
+<a class="hover:text-ivory transition-colors duration-200 cursor-interactive-link" href="#collection">Collection</a>
+<a class="hover:text-ivory transition-colors duration-200 cursor-interactive-link" href="#about">About</a>
+<a class="hover:text-ivory transition-colors duration-200 cursor-interactive-link" href="#contact">Contact</a>
+</nav>
+<!-- Right Action & Mobile Menu Toggle -->
+<div class="flex items-center space-x-8">
+<a class="hidden sm:inline-block text-[10px] uppercase font-sans tracking-ultra-wide text-bronze-light hover:text-ivory transition-colors cursor-interactive-link" href="#contact">
+          Inquire
+        </a>
+<button aria-label="Toggle Navigation Menu" class="text-[10px] uppercase font-sans tracking-ultra-wide text-ash hover:text-ivory flex items-center gap-2 cursor-interactive-link" onclick="document.getElementById('mobile-drawer').classList.toggle('hidden');">
+<span>Menu</span>
+<span class="w-1.5 h-1.5 rounded-full bg-bronze"></span>
+</button>
+</div>
+</div>
+<!-- Mobile Drawer -->
+<div class="hidden md:hidden bg-obsidian border-b border-line px-8 py-8 transition-all" id="mobile-drawer">
+<nav class="flex flex-col space-y-6 text-xs uppercase tracking-cinema text-ash">
+<a class="hover:text-ivory transition-colors" href="#collection" onclick="document.getElementById('mobile-drawer').classList.add('hidden')">Collection</a>
+<a class="hover:text-ivory transition-colors" href="#about" onclick="document.getElementById('mobile-drawer').classList.add('hidden')">About</a>
+<a class="hover:text-ivory transition-colors" href="#statement" onclick="document.getElementById('mobile-drawer').classList.add('hidden')">Philosophy</a>
+<a class="hover:text-ivory transition-colors" href="#contact" onclick="document.getElementById('mobile-drawer').classList.add('hidden')">Contact</a>
+</nav>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main>
+<!-- BEGIN: HeroSection -->
+<section class="relative min-h-screen w-full flex items-center justify-center pt-28 pb-20 px-6 overflow-hidden" data-purpose="cinematic-hero">
+<!-- Background subtle atmospheric gradients (Layer z-0) -->
+<div class="absolute inset-0 bg-radial from-carbon via-noir to-noir pointer-events-none opacity-60 z-0"></div>
+<div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-bronze/5 blur-[180px] rounded-full pointer-events-none z-0"></div>
+<!-- Foreground Hero Content (Layer z-10) -->
+<div class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+<!-- Hero Copy: Purged, Restrained, High-Impact -->
+<div class="lg:col-span-6 flex flex-col justify-center order-2 lg:order-1 pt-6 lg:pt-0">
+<div class="flex items-center gap-3 mb-6">
+<span class="h-[1px] w-8 bg-bronze"></span>
+<span class="text-[9px] uppercase tracking-ultra-wide font-sans text-bronze-light">Haute Parfumerie</span>
+</div>
+<h1 class="font-cormorant text-4xl sm:text-6xl xl:text-7xl font-light leading-[1.08] tracking-tight text-alabaster">
+    Crafted Fragrances <br/>
+<span class="italic font-normal font-cormorant text-bronze-light">That Define Confidence &amp; Style.</span>
+</h1>
+<p class="mt-6 text-sm font-sans font-light leading-relaxed text-ash max-w-md">
+    Discover scents that leave a lasting impression.
+  </p>
+<div class="mt-10 flex items-center gap-6">
+<a class="px-8 py-4 bg-ivory text-noir font-sans text-xs uppercase tracking-cinema hover:bg-bronze hover:text-noir transition-all duration-300 cursor-interactive-link" href="#collection">
+      Explore Collection
+    </a>
+<a class="text-xs uppercase tracking-cinema text-ash hover:text-ivory transition-colors cursor-interactive-link" href="#about">
+      Our Story →
+    </a>
+</div>
+</div>
+<!-- Hero Bottle Imagery: Absolute Anchor (NB TRILLION) -->
+<div class="lg:col-span-6 flex justify-center order-1 lg:order-2">
+<div class="relative w-full max-w-[480px] aspect-[452/678] editorial-image-frame p-2 border border-line bg-obsidian/60 shadow-2xl cursor-interactive-card">
+<div class="absolute -top-2 -right-2 w-6 h-6 border-t border-r border-bronze pointer-events-none z-20"></div>
+<div class="absolute -bottom-2 -left-2 w-6 h-6 border-b border-l border-bronze pointer-events-none z-20"></div>
+<img alt="BOSSITIVITI NB TRILLION" class="w-full h-full object-cover shadow-inner z-10" loading="eager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQPWcgIB7Qbd290BoM2fD8IUixrxC-ZJ0NIGIQejSYSJbLQ6yU7Slk-FOwuVNB1-EHr46ucwRE8JzvG6nifWKxBjfHXXMgqFPQZsDJmdCU9oVNgF4JYwbEp_5wjncsZV7l6SAJUsTNmMrN8jj0J5uCjIq1wrczcNZXr-1eJW7KvkMkTir5KOsaVN2S-xBxYIGL5c2WfMZjdbTspo4kHPP6bJrTxNignlF4vaD692oiMHHNvw9QteQA6DumKgIsc62nCNs"/>
+<!-- Flacon Floating Metadata Tag (Layer z-20) -->
+<div class="absolute bottom-4 left-4 right-4 p-4 bg-noir/90 backdrop-blur-sm border border-line flex items-center justify-between text-left z-20">
+<div>
+<span class="block text-[8px] uppercase tracking-ultra-wide text-bronze-light">For Women</span>
+<span class="font-display text-xs tracking-wider text-ivory">NB TRILLION</span>
+</div>
+<span class="text-[10px] font-sans text-ash">AED 800</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Discovery Indicator -->
+<a aria-label="Scroll to collection" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 group opacity-60 hover:opacity-100 transition-opacity cursor-interactive-link" href="#about">
+<span class="text-[8px] font-sans uppercase tracking-cinema text-ash group-hover:text-bronze-light transition-colors">Scroll</span>
+<div class="w-[1px] h-7 bg-gradient-to-b from-bronze to-transparent"></div>
+</a>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: BrandStorySection -->
+<section class="py-32 border-y border-line bg-obsidian relative overflow-hidden" data-purpose="brand-story" id="about">
+<div class="max-w-5xl mx-auto px-6 md:px-12 text-center">
+<span class="text-[10px] font-sans uppercase tracking-cinema text-bronze">Our Story</span>
+<!-- Verified Founder Narrative Only -->
+<h2 class="mt-8 font-cormorant text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-alabaster leading-[1.2]">
+  "BOSSITIVITI was never a business idea for me. It was a response."
+</h2>
+<div class="mt-12 w-12 h-[1px] bg-bronze mx-auto"></div>
+<div class="mt-10 max-w-2xl mx-auto space-y-6 text-ash font-light text-sm leading-relaxed text-left sm:text-center">
+<p>
+  For years, people would stop me and ask, <span class="text-ivory italic">"What perfume are you wearing?"</span> That fragrance was <strong class="font-normal text-alabaster">NB THOUSAND</strong>—my personal choice, my identity, my silent signature. I realized something powerful in those moments: a fragrance can change how people see you... and how you see yourself.
+</p>
+<p>
+  From NB THOUSAND, we expanded the vision to NB MILLION, NB BILLION, NB TRILLION, NB OCTILLION, and NB DECILLION—each representing a higher level of presence, power, and personality.
+</p>
+</div>
+<div class="mt-8">
+<span class="font-display text-xs tracking-widest text-bronze-light uppercase block">Ealdorman</span>
+<span class="text-[9px] uppercase tracking-ultra-wide text-ash block mt-1">The Founder</span>
+</div>
+<!-- Verified Core Pillars -->
+<div class="mt-20 pt-16 border-t border-line grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+<div class="p-8 border border-line/50 bg-noir/40">
+<span class="text-[9px] font-sans uppercase tracking-cinema text-bronze block mb-2">Pillar I</span>
+<h3 class="font-cormorant text-2xl text-alabaster">Authentic Fragrances</h3>
+</div>
+<div class="p-8 border border-line/50 bg-noir/40">
+<span class="text-[9px] font-sans uppercase tracking-cinema text-bronze block mb-2">Pillar II</span>
+<h3 class="font-cormorant text-2xl text-alabaster">Long-Lasting Formulations</h3>
+</div>
+<div class="p-8 border border-line/50 bg-noir/40">
+<span class="text-[9px] font-sans uppercase tracking-cinema text-bronze block mb-2">Pillar III</span>
+<h3 class="font-cormorant text-2xl text-alabaster">Elegant Packaging</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- END: BrandStorySection -->
+<!-- BEGIN: CinematicCollectionChapters -->
+<section class="py-24 bg-noir" data-purpose="cinematic-collection-showcase" id="collection">
+<div class="max-w-7xl mx-auto px-6 md:px-12 mb-20 text-left">
+<div class="flex items-end justify-between flex-wrap gap-4 border-b border-line pb-8">
+<div>
+<span class="text-[10px] uppercase font-sans tracking-cinema text-bronze">The Fragrance Collection</span>
+<h2 class="font-cormorant text-4xl md:text-6xl text-alabaster font-light mt-2">Distinct Signatures</h2>
+</div>
+<p class="font-sans text-xs uppercase tracking-widest text-ash max-w-xs text-left lg:text-right">
+  Official Catalog
+</p>
+</div>
+</div>
+<!-- Chapter 01: NB THOUSAND -->
+<article class="py-24 border-b border-line/60 fragrance-chapter" data-chapter="01 / 06 — NB THOUSAND" data-progress="16%" id="chapter-01">
+<div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+<div class="lg:col-span-6 order-1">
+<div class="relative editorial-image-frame aspect-[683/1024] max-w-[480px] mx-auto border border-line bg-obsidian cursor-interactive-card">
+<img alt="NB THOUSAND" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLubot3IQ5GTOuOTngq4EyCxyScFC8tbYvvOJ0S61L7zR6QiW3iz3LIVtU8Qn7G6zbxdezrRVeEXYVoHAfE5p7qg3aKleRJygfmBfZ04aIwQQzIk-RkOpA42lw7scLOPpO7_R54MA0OkGFxakAYSnEGecOZ3U2gg080f6O3bQn4vqPtC6WMVSHF1D5RZEVK-j2tGHiL1hNgKt9JN6i76V3fPlM4hWBm559kO5cH_fmUji4vXT8zORtUPiPKuf5Qpu31HM"/>
+<div class="absolute top-6 left-6 px-3 py-1 bg-noir/85 border border-line text-[9px] uppercase tracking-ultra-wide text-bronze-light z-20">
+        For Men
+      </div>
+</div>
+</div>
+<div class="lg:col-span-6 order-2 flex flex-col justify-center">
+<span class="font-sans text-[11px] uppercase tracking-cinema text-ash">Chapter 01</span>
+<h3 class="font-cormorant text-5xl md:text-7xl font-normal text-alabaster mt-2 mb-2">
+      NB THOUSAND
+    </h3>
+<p class="font-sans text-xs uppercase tracking-ultra-wide text-bronze-light mb-8">
+      For Men
+    </p>
+<div class="w-10 h-[1px] bg-bronze/50 mb-8"></div>
+<div class="border-y border-line py-6 mb-10 flex items-baseline justify-between max-w-md">
+<span class="text-[10px] uppercase tracking-ultra-wide text-ash">Price</span>
+<span class="font-display text-2xl text-ivory tracking-wider">AED 1,000</span>
+</div>
+<div>
+<a class="inline-flex items-center gap-3 px-10 py-4 border border-bronze-dim hover:border-bronze bg-obsidian text-xs uppercase tracking-cinema text-ivory hover:text-bronze transition-all duration-300 group cursor-interactive-link" href="#contact">
+<span>Explore</span>
+<span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Chapter 02: NB MILLION -->
+<article class="py-24 border-b border-line/60 bg-obsidian/30 fragrance-chapter" data-chapter="02 / 06 — NB MILLION" data-progress="33%" id="chapter-02">
+<div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+<div class="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-center">
+<span class="font-sans text-[11px] uppercase tracking-cinema text-ash">Chapter 02</span>
+<h3 class="font-cormorant text-5xl md:text-7xl font-normal text-alabaster mt-2 mb-2">
+      NB MILLION
+    </h3>
+<p class="font-sans text-xs uppercase tracking-ultra-wide text-bronze-light mb-8">
+      For Women
+    </p>
+<div class="w-10 h-[1px] bg-bronze/50 mb-8"></div>
+<div class="border-y border-line py-6 mb-10 flex items-baseline justify-between max-w-md">
+<span class="text-[10px] uppercase tracking-ultra-wide text-ash">Price</span>
+<span class="font-display text-2xl text-ivory tracking-wider">AED 900</span>
+</div>
+<div>
+<a class="inline-flex items-center gap-3 px-10 py-4 border border-bronze-dim hover:border-bronze bg-obsidian text-xs uppercase tracking-cinema text-ivory hover:text-bronze transition-all duration-300 group cursor-interactive-link" href="#contact">
+<span>Explore</span>
+<span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+</a>
+</div>
+</div>
+<div class="lg:col-span-6 order-1 lg:order-2">
+<div class="relative editorial-image-frame aspect-[452/678] max-w-[460px] mx-auto border border-line bg-obsidian cursor-interactive-card">
+<img alt="NB MILLION" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzkRSGFn6bza4-Yj20cogAXHd5YU2SF9fA87yoBuP845a5zNvBr-VQhOZoZvEU4CtySye1mCBdb6Y3Zr4URdBNmioP2O9TC7HPKiAjVUFXWNzGhdazfp52ne_lTuEkhPmJ9wwfRSvbT0M71XXdBmiaQ4qOg4RrNft2HBo0BdnrhXyKbtBlQsXOBK8sipjA16Vfnjli7-IvHBe-XnsEdVV1AYQeIG0jMlRsmIOeLtHB1O6vwvWVAiOnR3CLSKEVwYVFf9I"/>
+<div class="absolute top-6 right-6 px-3 py-1 bg-noir/85 border border-line text-[9px] uppercase tracking-ultra-wide text-bronze-light z-20">
+        For Women
+      </div>
+</div>
+</div>
+</div>
+</article>
+<!-- Chapter 03: NB BILLION -->
+<article class="py-24 border-b border-line/60 fragrance-chapter" data-chapter="03 / 06 — NB BILLION" data-progress="50%" id="chapter-03">
+<div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+<div class="lg:col-span-6 order-1">
+<div class="relative editorial-image-frame aspect-[683/1024] max-w-[480px] mx-auto border border-line bg-obsidian cursor-interactive-card">
+<img alt="NB BILLION" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPxGSO1UnRbVLsifGc4zkUK3Sc6JiDbwP8GjuvVZ1WISblQHPofiUxaElbVoWFpuUxWRvMyDcfy6IiXIvqLHQddv5YFt9WhPbvewTumPht3EX2cYfP5_dHTS2FuOJjvnmxoONtRZXgtwT9o1tRdutv4NYlOqgPPmEQCGA-T7VKLELljQ-6ACG3zWKnjQULbUOuHSsq5kGcf64OqMhM6mmXPLD7Zg1sryRg2WgUxkXzafqQcSMT6gwMsiG5WKU-N_wcyOY"/>
+<div class="absolute top-6 left-6 px-3 py-1 bg-noir/85 border border-line text-[9px] uppercase tracking-ultra-wide text-bronze-light z-20">
+        For Men
+      </div>
+</div>
+</div>
+<div class="lg:col-span-6 order-2 flex flex-col justify-center">
+<span class="font-sans text-[11px] uppercase tracking-cinema text-ash">Chapter 03</span>
+<h3 class="font-cormorant text-5xl md:text-7xl font-normal text-alabaster mt-2 mb-2">
+      NB BILLION
+    </h3>
+<p class="font-sans text-xs uppercase tracking-ultra-wide text-bronze-light mb-8">
+      For Men
+    </p>
+<div class="w-10 h-[1px] bg-bronze/50 mb-8"></div>
+<div class="border-y border-line py-6 mb-10 flex items-baseline justify-between max-w-md">
+<span class="text-[10px] uppercase tracking-ultra-wide text-ash">Price</span>
+<span class="font-display text-2xl text-ivory tracking-wider">AED 800</span>
+</div>
+<div>
+<a class="inline-flex items-center gap-3 px-10 py-4 border border-bronze-dim hover:border-bronze bg-obsidian text-xs uppercase tracking-cinema text-ivory hover:text-bronze transition-all duration-300 group cursor-interactive-link" href="#contact">
+<span>Explore</span>
+<span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Chapter 04: NB TRILLION -->
+<article class="py-24 border-b border-line/60 bg-obsidian/30 fragrance-chapter" data-chapter="04 / 06 — NB TRILLION" data-progress="66%" id="chapter-04">
+<div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+<div class="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-center">
+<span class="font-sans text-[11px] uppercase tracking-cinema text-ash">Chapter 04</span>
+<h3 class="font-cormorant text-5xl md:text-7xl font-normal text-alabaster mt-2 mb-2">
+      NB TRILLION
+    </h3>
+<p class="font-sans text-xs uppercase tracking-ultra-wide text-bronze-light mb-8">
+      For Women
+    </p>
+<div class="w-10 h-[1px] bg-bronze/50 mb-8"></div>
+<div class="border-y border-line py-6 mb-10 flex items-baseline justify-between max-w-md">
+<span class="text-[10px] uppercase tracking-ultra-wide text-ash">Price</span>
+<span class="font-display text-2xl text-ivory tracking-wider">AED 800</span>
+</div>
+<div>
+<a class="inline-flex items-center gap-3 px-10 py-4 border border-bronze-dim hover:border-bronze bg-obsidian text-xs uppercase tracking-cinema text-ivory hover:text-bronze transition-all duration-300 group cursor-interactive-link" href="#contact">
+<span>Explore</span>
+<span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+</a>
+</div>
+</div>
+<div class="lg:col-span-6 order-1 lg:order-2">
+<div class="relative editorial-image-frame aspect-[452/678] max-w-[460px] mx-auto border border-line bg-obsidian cursor-interactive-card">
+<img alt="NB TRILLION" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZKJBmd19d-76tyxkPAl_7qq6zEfbhpJRVmq7besO7F_nAupUh8uL9qvxOhsJGGyDcgE7Z5nxoX1srDXlQQPz1BI6BR7miAKIK2m6dalbPoBj2AKAKwcM4D15mX2tPRyiAKCVP9YF1UC43WstgZfKZ6vbiUsH56N3hpdm6VeL3MXA1og1OPpK9EIFhGf18LylM0-HjRc1BmutKP3A295GYUF0J965yWds-JuXNHD2DrAHsnrv5F5fOoucqWmQW-Rkyxg0"/>
+<div class="absolute top-6 right-6 px-3 py-1 bg-noir/85 border border-line text-[9px] uppercase tracking-ultra-wide text-bronze-light z-20">
+        For Women
+      </div>
+</div>
+</div>
+</div>
+</article>
+<!-- Chapter 05: NB OCTILLION -->
+<article class="py-24 border-b border-line/60 fragrance-chapter" data-chapter="05 / 06 — NB OCTILLION" data-progress="83%" id="chapter-05">
+<div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+<div class="lg:col-span-6 order-1">
+<div class="relative editorial-image-frame aspect-[683/1024] max-w-[480px] mx-auto border border-line bg-obsidian cursor-interactive-card">
+<img alt="NB OCTILLION" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl07wbOFPa_8ZBMBdXeeYPcbdXGHWOUAGPsl_nnO7uKuewIyVvbn7knMMWKRVWY3no86f6MdChdOkJJ6tjS5pxaLFr0Lv-U-qnazgdV2VJyNy9rIKK4RngAWc1yMVRP6ELSXCfUtvSavd7oG2j2aZUnAUAjLiok4ut4PN62t8UEWCUAl1pJjnwsFC0z-d47zm2ntpPLd7-lbgdV_-IFgAw3VmR0FD7bmAerh1cLLwXTo2NOHQDXwmguFm3wXrT4mXANKg"/>
+<div class="absolute top-6 left-6 px-3 py-1 bg-noir/85 border border-line text-[9px] uppercase tracking-ultra-wide text-bronze-light z-20">
+        For Women
+      </div>
+</div>
+</div>
+<div class="lg:col-span-6 order-2 flex flex-col justify-center">
+<span class="font-sans text-[11px] uppercase tracking-cinema text-ash">Chapter 05</span>
+<h3 class="font-cormorant text-5xl md:text-7xl font-normal text-alabaster mt-2 mb-2">
+      NB OCTILLION
+    </h3>
+<p class="font-sans text-xs uppercase tracking-ultra-wide text-bronze-light mb-8">
+      For Women
+    </p>
+<div class="w-10 h-[1px] bg-bronze/50 mb-8"></div>
+<div class="border-y border-line py-6 mb-10 flex items-baseline justify-between max-w-md">
+<span class="text-[10px] uppercase tracking-ultra-wide text-ash">Price</span>
+<span class="font-display text-2xl text-ivory tracking-wider">AED 800</span>
+</div>
+<div>
+<a class="inline-flex items-center gap-3 px-10 py-4 border border-bronze-dim hover:border-bronze bg-obsidian text-xs uppercase tracking-cinema text-ivory hover:text-bronze transition-all duration-300 group cursor-interactive-link" href="#contact">
+<span>Explore</span>
+<span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Chapter 06: NB DECILLION -->
+<article class="py-24 fragrance-chapter" data-chapter="06 / 06 — NB DECILLION" data-progress="100%" id="chapter-06">
+<div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+<div class="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-center">
+<span class="font-sans text-[11px] uppercase tracking-cinema text-ash">Chapter 06</span>
+<h3 class="font-cormorant text-5xl md:text-7xl font-normal text-alabaster mt-2 mb-2">
+      NB DECILLION
+    </h3>
+<p class="font-sans text-xs uppercase tracking-ultra-wide text-bronze-light mb-8">
+      For Men
+    </p>
+<div class="w-10 h-[1px] bg-bronze/50 mb-8"></div>
+<div class="border-y border-line py-6 mb-10 flex items-baseline justify-between max-w-md">
+<span class="text-[10px] uppercase tracking-ultra-wide text-ash">Price</span>
+<span class="font-display text-2xl text-ivory tracking-wider">AED 800</span>
+</div>
+<div>
+<a class="inline-flex items-center gap-3 px-10 py-4 border border-bronze-dim hover:border-bronze bg-obsidian text-xs uppercase tracking-cinema text-ivory hover:text-bronze transition-all duration-300 group cursor-interactive-link" href="#contact">
+<span>Explore</span>
+<span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+</a>
+</div>
+</div>
+<div class="lg:col-span-6 order-1 lg:order-2">
+<div class="relative editorial-image-frame aspect-[900/1350] max-w-[460px] mx-auto border border-line bg-obsidian cursor-interactive-card">
+<img alt="NB DECILLION" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpdPXFDDP2CCnXSDckFROw72XMZd7sOVsQyIQiSNcAAMTzxLqyvYJOLGNg468gsKNw3HDvjjHEz8A7xdo7_G_p8ckKmSLvk9e1gaBoCnxA6QSzAgWhTYqTbpaV7FqZU7-A7Y0r1LBExsKaQG8NBTJ-CxOK6Co79ZR4EYyJ0CBv5OLZ0PrLJU-hXxuIWC6amMXTsQ7gxWLh10jB9IZYt2YA37Oh_CUB_6afqvU8dLVCFot_MoBwJpNzVt1fnKvYkuFcl9I"/>
+<div class="absolute top-6 right-6 px-3 py-1 bg-noir/85 border border-line text-[9px] uppercase tracking-ultra-wide text-bronze-light z-20">
+        For Men
+      </div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- END: CinematicCollectionChapters -->
+<!-- BEGIN: CinematicStatementSection -->
+<section class="py-36 border-y border-line bg-obsidian relative overflow-hidden" data-purpose="cinematic-statement" id="statement">
+<div class="max-w-4xl mx-auto px-6 md:px-12 text-center">
+<span class="text-[9px] uppercase tracking-ultra-wide text-bronze block mb-6">The Philosophy</span>
+<h2 class="font-cormorant text-4xl sm:text-6xl md:text-7xl font-light text-alabaster leading-tight">
+  "Confidence is not worn. <br/>
+<span class="italic font-cormorant text-bronze-light">It is experienced."</span>
+</h2>
+<div class="mt-8 w-12 h-[1px] bg-bronze mx-auto"></div>
+<p class="mt-8 text-sm md:text-base font-sans text-ash font-light leading-relaxed max-w-xl mx-auto">
+  Every fragrance is crafted to leave a lasting impression — bold, refined, and unmistakably you.
+</p>
+</div>
+</section>
+<!-- END: CinematicStatementSection -->
+<!-- BEGIN: ContactInquirySection -->
+<section class="py-32 bg-noir relative" data-purpose="authentic-contact" id="contact">
+<div class="max-w-4xl mx-auto px-6 md:px-12 text-center">
+<span class="text-[10px] font-sans uppercase tracking-cinema text-bronze">Get In Touch</span>
+<h2 class="mt-4 font-cormorant text-4xl md:text-6xl font-light text-alabaster">
+  Connect With BOSSITIVITI
+</h2>
+<!-- Verified Contact Details: strictly purged unverified emails -->
+<div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-y border-line text-center text-xs max-w-xl mx-auto">
+<div>
+<span class="text-[9px] uppercase tracking-ultra-wide text-ash block mb-1">Phone / WhatsApp</span>
+<a class="text-ivory hover:text-bronze-light transition-colors cursor-interactive-link" href="tel:+971568966393">+971 56 896 6393</a>
+</div>
+<div>
+<span class="text-[9px] uppercase tracking-ultra-wide text-ash block mb-1">Location</span>
+<span class="text-ivory">United Arab Emirates</span>
+</div>
+</div>
+<!-- Clean Luxury Form -->
+<form class="mt-14 max-w-xl mx-auto text-left space-y-6" onsubmit="event.preventDefault(); alert('Thank you for reaching out to BOSSITIVITI. We will respond promptly.');">
+<div>
+<label class="block text-[9px] uppercase tracking-ultra-wide text-ash mb-2" for="contact-name">Full Name</label>
+<input class="w-full bg-obsidian border border-line focus:border-bronze text-ivory text-xs px-4 py-3.5 outline-none font-sans transition-colors placeholder:text-ash/40" id="contact-name" placeholder="Your name" required="" type="text"/>
+</div>
+<div>
+<label class="block text-[9px] uppercase tracking-ultra-wide text-ash mb-2" for="contact-email">Email Address</label>
+<input class="w-full bg-obsidian border border-line focus:border-bronze text-ivory text-xs px-4 py-3.5 outline-none font-sans transition-colors placeholder:text-ash/40" id="contact-email" placeholder="Your email address" required="" type="email"/>
+</div>
+<div>
+<label class="block text-[9px] uppercase tracking-ultra-wide text-ash mb-2" for="contact-message">Message / Inquiry</label>
+<textarea class="w-full bg-obsidian border border-line focus:border-bronze text-ivory text-xs px-4 py-3.5 outline-none font-sans transition-colors placeholder:text-ash/40" id="contact-message" placeholder="How may we assist you with our fragrances?" required="" rows="4"></textarea>
+</div>
+<div class="text-center pt-2">
+<button class="w-full md:w-auto px-12 py-4 bg-bronze text-noir font-sans text-xs uppercase tracking-cinema font-medium hover:bg-bronze-light transition-colors duration-300 cursor-interactive-link" type="submit">
+    Send Inquiry
+  </button>
+</div>
+</form>
+</div>
+</section>
+<!-- END: ContactInquirySection -->
+</main>
+<!-- BEGIN: MinimalEditorialFooter -->
+<footer class="bg-noir border-t border-line py-16 text-ash font-sans text-xs" data-purpose="luxury-footer">
+<div class="max-w-7xl mx-auto px-6 md:px-12">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14 border-b border-line">
+<!-- Col 1: Brand & Bio -->
+<div class="md:col-span-5">
+<a class="font-display text-lg tracking-cinema text-ivory block mb-3 hover:text-bronze-light transition-colors cursor-interactive-link" href="#">BOSSITIVITI</a>
+<p class="text-xs text-ash font-light max-w-sm leading-relaxed mb-6">
+    Haute Parfumerie crafting signatures that define confidence, elegance, and individuality.
+  </p>
+<a class="text-[11px] uppercase tracking-wider text-bronze-light hover:text-ivory inline-flex items-center gap-2 transition-colors cursor-interactive-link" href="https://instagram.com/bossitiviti" rel="noopener noreferrer" target="_blank">
+<span>Instagram @bossitiviti</span>
+<span>↗</span>
+</a>
+</div>
+<!-- Col 2: The Collection -->
+<div class="md:col-span-4">
+<span class="text-[9px] uppercase tracking-cinema text-bronze block mb-4">Collection</span>
+<ul class="space-y-2 text-xs tracking-wider">
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#chapter-01">NB THOUSAND — AED 1,000 (Men)</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#chapter-02">NB MILLION — AED 900 (Women)</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#chapter-03">NB BILLION — AED 800 (Men)</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#chapter-04">NB TRILLION — AED 800 (Women)</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#chapter-05">NB OCTILLION — AED 800 (Women)</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#chapter-06">NB DECILLION — AED 800 (Men)</a></li>
+</ul>
+</div>
+<!-- Col 3: Navigation & Verified Details -->
+<div class="md:col-span-3">
+<span class="text-[9px] uppercase tracking-cinema text-bronze block mb-4">Maison</span>
+<ul class="space-y-2 text-xs tracking-wider mb-6">
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#">Home</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#collection">Collection</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#about">Our Story</a></li>
+<li><a class="hover:text-ivory transition-colors cursor-interactive-link" href="#contact">Contact</a></li>
+</ul>
+<p class="text-[11px] text-ash/80">United Arab Emirates</p>
+<p class="text-[11px] text-bronze-light mt-1">+971 56 896 6393</p>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[10px] tracking-widest uppercase text-ash/60">
+<p>© 2026 BOSSITIVITI. ALL RIGHTS RESERVED.</p>
+<div class="flex space-x-6 mt-4 sm:mt-0">
+<a class="hover:text-ivory transition-colors cursor-interactive-link" href="#statement">Philosophy</a>
+<a class="hover:text-ivory transition-colors cursor-interactive-link" href="#contact">Direct Inquiries</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: MinimalEditorialFooter -->
+<script>
+  // 1. One-second Opening Experience
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const preloader = document.getElementById('preloader');
+      if (preloader) preloader.classList.add('loaded');
+    }, 1000);
+  });
+
+  // 2. Desktop Custom Cursor & Physics
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const dot = document.getElementById('custom-cursor-dot');
+    const ring = document.getElementById('custom-cursor-ring');
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (dot) {
+        dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      }
+    });
+
+    const renderCursor = () => {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      if (ring) {
+        ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+      }
+      requestAnimationFrame(renderCursor);
+    };
+    requestAnimationFrame(renderCursor);
+
+    // Interactive element triggers
+    document.querySelectorAll('.cursor-interactive-card').forEach(el => {
+      el.addEventListener('mouseenter', () => ring?.classList.add('cursor-explore'));
+      el.addEventListener('mouseleave', () => ring?.classList.remove('cursor-explore'));
+    });
+
+    document.querySelectorAll('.cursor-interactive-link, a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => ring?.classList.add('cursor-hover-link'));
+      el.addEventListener('mouseleave', () => ring?.classList.remove('cursor-hover-link'));
+    });
+  }
+
+  // 3. Scroll Chapter Indicator
+  const chapters = document.querySelectorAll('.fragrance-chapter');
+  const chapterLabel = document.getElementById('scroll-chapter-label');
+  const progressBar = document.getElementById('scroll-progress-bar');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const title = entry.target.getAttribute('data-chapter');
+        const progress = entry.target.getAttribute('data-progress');
+        if (chapterLabel && title) chapterLabel.textContent = title;
+        if (progressBar && progress) progressBar.style.width = progress;
+      }
+    });
+  }, {
+    threshold: 0.35
+  });
+
+  chapters.forEach(chapter => observer.observe(chapter));
+</script>
+</body></html>
