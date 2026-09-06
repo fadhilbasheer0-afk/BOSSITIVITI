@@ -28,7 +28,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bossitiviti.com"),
+  metadataBase: new URL("https://bossitiviti-perfume.vercel.app"),
   title: {
     default: "BOSSITIVITI | Haute Parfumerie",
     template: "%s | BOSSITIVITI",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://bossitiviti.com",
+    url: "https://bossitiviti-perfume.vercel.app",
     siteName: "BOSSITIVITI",
     title: "BOSSITIVITI | Haute Parfumerie",
     description:
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://bossitiviti.com",
+    canonical: "https://bossitiviti-perfume.vercel.app",
   },
 };
 

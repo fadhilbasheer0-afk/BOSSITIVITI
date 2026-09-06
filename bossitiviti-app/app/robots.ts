@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://bossitiviti.com/sitemap.xml",
+    sitemap: "https://bossitiviti-perfume.vercel.app/sitemap.xml",
   };
 }
